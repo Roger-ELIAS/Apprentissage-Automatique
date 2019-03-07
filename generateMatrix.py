@@ -10,7 +10,9 @@ def getHistogram(fileName) :
 def generateMatrixTrain(foldername) :
     matrix = []
     vector = []
+
     files = os.listdir(foldername +"/Mer")
+
     for fileName in files :
         histo = getHistogram(foldername +"/Mer/"+fileName)
         matrix.append(histo)

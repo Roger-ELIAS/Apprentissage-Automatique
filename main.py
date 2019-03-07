@@ -11,7 +11,6 @@ def diff(a, b):
 
 if __name__ == '__main__':
     final = generateMatrix.generateMatrixTrain("Data")
-
     result = learn.training(final)
 
     print("Taux de réussite : ", diff(result, final[1]))
