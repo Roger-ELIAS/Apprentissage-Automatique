@@ -10,7 +10,7 @@ def getHistogram(fileName) :
 def generateMatrix() :
     matrix = []
     vector = []
-    files = os.listdir("Data/Mer")
+    files = os.listdir("/Users/romaincolonnadistria/Documents/Apprentissage-Automatique-/Data/Mer")
     for fileName in files :
         histo = getHistogram("Data/Mer/"+fileName)
         matrix.append(histo)
