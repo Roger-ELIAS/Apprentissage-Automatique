@@ -12,3 +12,10 @@ def resizeImage() :
         baseImage = baseImage.resize((200, 200))
         baseImage.save("Data/Mer/" + fileName)
 
+    files = os.listdir("Data/AilleursBase")
+
+    for fileName in files :
+        baseImage = Image.open("Data/AilleursBase/"+fileName)
+        print(fileName)
+        baseImage = baseImage.resize((200, 200))
+        baseImage.save("Data/Ailleurs/" + fileName)
