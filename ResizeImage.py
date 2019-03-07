@@ -19,3 +19,6 @@ def resizeImage() :
         print(fileName)
         baseImage = baseImage.resize((200, 200))
         baseImage.save("Data/Ailleurs/" + fileName)
+
+
+resizeImage()
