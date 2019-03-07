@@ -12,5 +12,3 @@ def resizeImage() :
         baseImage = baseImage.resize((200, 200))
         baseImage.save("Data/Mer/" + fileName)
 
-
-
