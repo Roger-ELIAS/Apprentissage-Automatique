@@ -1,4 +1,5 @@
 import generateMatrix
+import crossValidate
 import learn
 import numpy
 
@@ -14,3 +15,6 @@ if __name__ == '__main__':
     result = learn.training(final)
 
     print("Taux de réussite : ", diff(result, final[1]))
+
+    crossValidate.cross(final)
+    
