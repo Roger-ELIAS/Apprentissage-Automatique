@@ -6,3 +6,10 @@ Ceux qui travaillent sur comment faire l'apprentissage et faire un script qui ut
 
 Ceux qui travaillent sur la transformation donnent des données du bon format afin de pouvoir utiliser les algos
 
+Abandonner le négatif, l'image est trop modifiée
+
+Pour augmenter le jeu de données utiliser flip
+
+Histogramme de Grandient augmenté, ou encore de contours afin de les combiner avec les méthodes ensemblistes
+
+risque de moins bien fonctionner selon les groupes d'histogrammes passés en paramètres => Tester afin de voir le plus efficace.
