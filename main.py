@@ -13,4 +13,4 @@ if __name__ == '__main__':
     final = generateMatrix.generateMatrixTrain("Data")
     result = learn.training(final)
 
-    print("Taux de réussite : ", diff(result, final[1]))
+    #print("Taux de réussite : ", diff(result, final[1]))

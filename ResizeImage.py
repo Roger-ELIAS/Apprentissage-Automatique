@@ -27,12 +27,12 @@ def rotateImage():
     for fileName in files :
         baseImage = Image.open("Data/Mer/"+fileName)
         nb = 36
-        test = fileName.split(".")
+        name = fileName.split(".")
         while nb < 360:
             newImage = baseImage.rotate(nb,Image.BICUBIC, True)
-            newfile = test[0] + str(nb) + "." +test[1]
+            newfile = name[0] + str(nb) + "." + name[1]
             nb = nb+36
-            newImage.save("RotationImage/" + newfile)
+            newImage.save("Data/Mer/" + newfile)
 
     files = os.listdir("Data/Ailleurs")
 
@@ -44,7 +44,6 @@ def rotateImage():
             newImage = baseImage.rotate(nb, Image.BICUBIC, True)
             newfile = test[0] + str(nb) + "." + test[1]
             nb = nb + 36
-            newImage.save("RotationImage/" + newfile)
+            newImage.save("Data/Ailleurs/" + newfile)
 
-
-#rotateImage()
+rotateImage()
