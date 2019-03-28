@@ -14,7 +14,7 @@ if __name__ == '__main__':
     final = generateMatrix.generateMatrixTrain("DATA_TRAIN_FOLDER")
     result = learn.training(final)
 
+
     print("Taux de réussite : ", diff(result, final[1]))
 
     crossValidate.cross(final)
-    
