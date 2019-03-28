@@ -1,16 +1,14 @@
-from sklearn import datasets, linear_model
-from sklearn.model_selection import cross_validate
-from sklearn.metrics.scorer import make_scorer
-from sklearn.metrics import confusion_matrix
-from sklearn.svm import LinearSVC
-
 from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import train_test_split
 from sklearn import svm
 
+# Fonction de cross validation.
+# Parametre : dataset est un vecteur contenant 
+# deux vecteurs. Le premier est un vecteur d'images
+# et le second est un vecteur contenant les classes
+# de chaque images du premier vecteur.
 def cross(dataset):
-    X = dataset[0]
-    y = dataset[1]
+    X = dataset[0]     # vecteur d'image
+    y = dataset[1]     # vecteur de classes
     
     clf = svm.SVC(kernel='linear', C=1)		# creation et entrainement de l'estimateur avec les donnees test
     scores = cross_val_score(clf, X, y, cv=20)	# cross validation avec les donnees test
