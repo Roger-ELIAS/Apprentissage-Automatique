@@ -25,26 +25,50 @@ def rotateImage():
     files = os.listdir("Data/Mer")
 
     for fileName in files :
-        baseImage = Image.open("Data/Mer/"+fileName)
-        nb = 36
+        baseImage = Image.open("Data/Mer/" + fileName)
         test = fileName.split(".")
-        while nb < 360:
-            newImage = baseImage.rotate(nb,Image.BICUBIC, True)
-            newfile = test[0] + str(nb) + "." +test[1]
-            nb = nb+36
-            newImage.save("RotationImage/" + newfile)
+
+        for rotationPhase in range(0, 2) :
+            imgNb = 0
+            for deg in range(1, 4) :
+                newImage = baseImage.rotate(rotationPhase * 90 + deg, Image.BICUBIC, True)
+                newfile = test[0] + str(imgNb) + "." + test[1]
+                newImage.save("Data/Mer/" + newfile)
+                imgNb += 1
+
+            newImage = baseImage.rotate((rotationPhase + 1) * 90, Image.BICUBIC, True)
+            newfile = test[0] + str(imgNb) + "." + test[1]
+            newImage.save("Data/Mer/" + newfile)
+
+        for deg in range(1, 4):
+            newImage = baseImage.rotate(270 + deg, Image.BICUBIC, True)
+            newfile = test[0] + str(imgNb) + "." + test[1]
+            newImage.save("Data/Mer/" + newfile)
+            imgNb += 1
 
     files = os.listdir("Data/Ailleurs")
 
     for fileName in files:
         baseImage = Image.open("Data/Ailleurs/" + fileName)
-        nb = 36
         test = fileName.split(".")
-        while nb < 360:
-            newImage = baseImage.rotate(nb, Image.BICUBIC, True)
-            newfile = test[0] + str(nb) + "." + test[1]
-            nb = nb + 36
-            newImage.save("RotationImage/" + newfile)
+        imgNb = 0
 
+        for rotationPhase in range(0, 3):
+            for deg in range(1, 4):
+                newImage = baseImage.rotate(rotationPhase * 90 + deg, Image.BICUBIC, True)
+                newfile = test[0] + str(imgNb) + "." + test[1]
+                newImage.save("Data/Ailleurs/" + newfile)
+                imgNb += 1
+
+            newImage = baseImage.rotate((rotationPhase + 1) * 90, Image.BICUBIC, True)
+            newfile = test[0] + str(imgNb) + "." + test[1]
+            newImage.save("Data/Ailleurs/" + newfile)
+            imgNb += 1
+
+        for deg in range(1, 4):
+            newImage = baseImage.rotate(270 + deg, Image.BICUBIC, True)
+            newfile = test[0] + str(imgNb) + "." + test[1]
+            newImage.save("Data/Ailleurs/" + newfile)
+            imgNb += 1
 
 #rotateImage()

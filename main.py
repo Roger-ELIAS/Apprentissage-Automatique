@@ -1,6 +1,8 @@
+import ResizeImage
 import generateMatrix
 import learn
 import numpy
+import neuralNetwork
 
 def diff(a, b):
     target = numpy.array(a)
@@ -10,7 +12,8 @@ def diff(a, b):
 
 
 if __name__ == '__main__':
+    ResizeImage.rotateImage()
     final = generateMatrix.generateMatrixTrain("Data")
-    result = learn.training(final)
+    result = neuralNetwork.training(final)
 
-    print("Taux de réussite : ", diff(result, final[1]))
+    #print("Taux de réussite : ", diff(result, final[1]))
