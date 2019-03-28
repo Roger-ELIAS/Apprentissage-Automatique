@@ -1,4 +1,22 @@
 from sklearn.naive_bayes import ComplementNB
+#from joblib import dump, load
+import pickle
+#def diff(a, b): 
+#    target = numpy.array(a)
+#    result = numpy.array(b)
+#    error = numpy.mean(target != result)
+#    return round(100 - error * 100, 10) 
+
+
+
+def train(dataset): 
+    X = dataset[0]     # vecteur d'image
+    y = dataset[1]     # vecteur de classes
+
+    algo = ComplementNB()
+    train = algo.fit(X, y)	# entrainement de l'algo avec le set d'image
+    pickle.dump(train, open("trainModel.joblib", "wb"))
+
 
 # fonction de prédiction d'image qui utilise
 # un algo de Bayes. Cette fonction entraine un 
@@ -10,9 +28,9 @@ from sklearn.naive_bayes import ComplementNB
 # aux classes des images.
 # Renvoie : un vecteur de classe correspondant
 # aux prediction des images.
-def training (dataSet):
-    algo = ComplementNB()
-    train = algo.fit(dataSet[0], dataSet[1])	# entrainement de l'algo avec le set d'image
-    predict = train.predict(dataSet[0])		# prediction avec le meme set que pour l'entrainement
+def predict (dataset):
+    X = dataset[0]     # vecteur d'image
+    y = dataset[1]     # vecteur de classes
 
-    return predict
+    train = pickle.load(open("trainModel.joblib", "rb"))
+    predict = train.predict(X)		# prediction avec le meme set que pour l'entrainement

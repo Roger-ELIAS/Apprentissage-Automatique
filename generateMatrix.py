@@ -2,7 +2,6 @@ import PIL
 from PIL import Image
 import os
 
-
 def getHistogram(fileName) :
     baseImage = Image.open(fileName)
     return baseImage.histogram()
@@ -27,13 +26,15 @@ def generateMatrixTrain(foldername) :
     return [matrix,vector]
 
 def generateMatrixTest(folder) :
-    matrix = []
-
+    matrix = []    
+    vector = []
     files = os.listdir(folder)
 
-
     for fileName in files :
-        histo = getHistogram(folder+ "/" + fileName)
+        truc = Image.open(folder + "/" + fileName)
+        truc = truc.resize((200, 200))
+        truc.save(folder + "/" + fileName)
+        histo = getHistogram(truc)
         matrix.append(histo)
 
-    return matrix
+    return [matrix, vector]
