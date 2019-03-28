@@ -13,7 +13,6 @@ def cross(dataset):
     clf = svm.SVC(kernel='linear', C=1)		# creation et entrainement de l'estimateur avec les donnees test
     scores = cross_val_score(clf, X, y, cv=20)	# cross validation avec les donnees test
     print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
-
     
     #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)   # Separation des donnees pour test et train
 
