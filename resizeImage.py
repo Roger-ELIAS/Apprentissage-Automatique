@@ -2,23 +2,11 @@ import PIL
 from PIL import Image
 import os
 
-def resizeImage() :
-
-    files = os.listdir("Data/MerBase")
-
-    for fileName in files :
-        baseImage = Image.open("Data/MerBase/"+fileName)
-        print(fileName)
-        baseImage = baseImage.resize((200, 200))
-        baseImage.save("Data/Mer/" + fileName)
-
-    files = os.listdir("Data/AilleursBase")
-
-    for fileName in files :
-        baseImage = Image.open("Data/AilleursBase/"+fileName)
-        print(fileName)
-        baseImage = baseImage.resize((200, 200))
-        baseImage.save("Data/Ailleurs/" + fileName)
+def resizeImage(image) :
+    Image._show(image)
+    baseImage = image.resize((200, 200))
+    Image._show(baseImage)
+    return baseImage
 
 def rotateImage():
 
@@ -46,4 +34,4 @@ def rotateImage():
             nb = nb + 36
             newImage.save("Data/Ailleurs/" + newfile)
 
-#rotateImage()
+rotateImage()
