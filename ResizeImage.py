@@ -46,4 +46,4 @@ def rotateImage():
             nb = nb + 36
             newImage.save("Data/Ailleurs/" + newfile)
 
-rotateImage()
+#rotateImage()
