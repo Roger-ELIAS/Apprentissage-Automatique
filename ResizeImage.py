@@ -20,55 +20,60 @@ def resizeImage() :
         baseImage = baseImage.resize((200, 200))
         baseImage.save("Data/Ailleurs/" + fileName)
 
-def rotateImage():
+def rotateSingleImage(baseImage, imageName, pathToSave, deg, imageNb) :
+    newImage = baseImage.rotate(deg, Image.BICUBIC, True)
+    newfile = imageName[0] + str(imageNb) + "." + imageName[1]
+    newImage.save(pathToSave + newfile)
 
-    files = os.listdir("Data/Mer")
+def rotateImage():
+    pathToSave = "Data/Mer/"
+    files = os.listdir(pathToSave)
 
     for fileName in files :
-        baseImage = Image.open("Data/Mer/" + fileName)
-        test = fileName.split(".")
+        baseImage = Image.open(pathToSave + fileName)
+        imageName = fileName.split(".")
+        imageNb = 0
 
-        for rotationPhase in range(0, 2) :
-            imgNb = 0
-            for deg in range(1, 4) :
-                newImage = baseImage.rotate(rotationPhase * 90 + deg, Image.BICUBIC, True)
-                newfile = test[0] + str(imgNb) + "." + test[1]
-                newImage.save("Data/Mer/" + newfile)
-                imgNb += 1
+        for rotationPhase in range(0, 3) :
+            for deg in range(1, 3) :
+                rotateSingleImage(baseImage, imageName, pathToSave, rotationPhase * 90 + deg, imageNb)
+                imageNb += 1
 
-            newImage = baseImage.rotate((rotationPhase + 1) * 90, Image.BICUBIC, True)
-            newfile = test[0] + str(imgNb) + "." + test[1]
-            newImage.save("Data/Mer/" + newfile)
+                rotateSingleImage(baseImage, imageName, pathToSave, rotationPhase * 90 - deg, imageNb)
+                imageNb += 1
 
-        for deg in range(1, 4):
-            newImage = baseImage.rotate(270 + deg, Image.BICUBIC, True)
-            newfile = test[0] + str(imgNb) + "." + test[1]
-            newImage.save("Data/Mer/" + newfile)
-            imgNb += 1
+            rotateSingleImage(baseImage, imageName, pathToSave, (rotationPhase + 1) * 90, imageNb)
+            imageNb += 1
 
-    files = os.listdir("Data/Ailleurs")
+        for deg in range(1, 3):
+            rotateSingleImage(baseImage, imageName, pathToSave, 270 + deg, imageNb)
+            imageNb += 1
+
+            rotateSingleImage(baseImage, imageName, pathToSave, 270 - deg, imageNb)
+            imageNb += 1
+
+    pathToSave = "Data/Ailleurs/"
+    files = os.listdir(pathToSave)
 
     for fileName in files:
-        baseImage = Image.open("Data/Ailleurs/" + fileName)
-        test = fileName.split(".")
-        imgNb = 0
+        baseImage = Image.open(pathToSave + fileName)
+        imageName = fileName.split(".")
+        imageNb = 0
 
         for rotationPhase in range(0, 3):
-            for deg in range(1, 4):
-                newImage = baseImage.rotate(rotationPhase * 90 + deg, Image.BICUBIC, True)
-                newfile = test[0] + str(imgNb) + "." + test[1]
-                newImage.save("Data/Ailleurs/" + newfile)
-                imgNb += 1
+            for deg in range(1, 3):
+                rotateSingleImage(baseImage, imageName, pathToSave, rotationPhase * 90 + deg, imageNb)
+                imageNb += 1
 
-            newImage = baseImage.rotate((rotationPhase + 1) * 90, Image.BICUBIC, True)
-            newfile = test[0] + str(imgNb) + "." + test[1]
-            newImage.save("Data/Ailleurs/" + newfile)
-            imgNb += 1
+                rotateSingleImage(baseImage, imageName, pathToSave, rotationPhase * 90 - deg, imageNb)
+                imageNb += 1
 
-        for deg in range(1, 4):
-            newImage = baseImage.rotate(270 + deg, Image.BICUBIC, True)
-            newfile = test[0] + str(imgNb) + "." + test[1]
-            newImage.save("Data/Ailleurs/" + newfile)
-            imgNb += 1
+            rotateSingleImage(baseImage, imageName, pathToSave, (rotationPhase + 1) * 90, imageNb)
+            imageNb += 1
 
-#rotateImage()
+        for deg in range(1, 3):
+            rotateSingleImage(baseImage, imageName, pathToSave, 270 + deg, imageNb)
+            imageNb += 1
+
+            rotateSingleImage(baseImage, imageName, pathToSave, 270 - deg, imageNb)
+            imageNb += 1
