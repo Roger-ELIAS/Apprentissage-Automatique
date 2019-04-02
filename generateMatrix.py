@@ -17,12 +17,9 @@ def append(histo, classe) :
         matrix.append(histo)
         vector.append(classe)
 
-def getHistogram(fileName) :
-	return fileName.histogram()
-
 def rotateSingleImage(imageResize, rotationDegre, classe) :
 	imageRotate = rotateImage(imageResize, rotationDegre)
-	histo = getHistogram(imageRotate)
+	histo = imageRotate.histogram()
 	append(histo, classe)
 
 def rotateImages(images, deg, classe) :
@@ -66,21 +63,21 @@ def rotate(folder, classe):
                         rotateImages(images, 270 - deg, classe)
 
 def generateMatrixTrain(foldername) :
-	rotate(foldername + "/Mer/", 1)
-	rotate(foldername + "/Ailleurs/", -1)
-	return [matrix,vector]
+    rotate(foldername + "/Mer/", 1)
+    rotate(foldername + "/Ailleurs/", -1)
+    return [matrix,vector]
 
 
 def generateMatrixTest(folder) :
-	matrix = []
+    matrix = []
 	
-	file = folder + "/"
-	files = os.listdir(file)
-	
-	for fileName in files :
-		baseImage = Image.open(file+fileName)
-                imageResize = resizeImage(baseImage)
-		histo =  imageResize.histogram()
-		matrix.append(histo)
+    file = folder + "/"
+    files = os.listdir(file)
 
-	return matrix
+    for fileName in files :
+        baseImage = Image.open(file+fileName)
+        imageResize = resizeImage(baseImage)
+        histo =  imageResize.histogram()
+        matrix.append(histo)
+
+    return matrix

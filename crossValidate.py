@@ -1,5 +1,10 @@
 from sklearn.model_selection import cross_val_score
 from sklearn import svm
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.naive_bayes import GaussianNB
+from sklearn import svm, metrics
+from sklearn.metrics.pairwise import chi2_kernel
 
 # Fonction de cross validation.
 # Parametre : dataset est un vecteur contenant 
@@ -24,7 +29,7 @@ def crossChi2(dataset):
     #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)   # Separation des donnees pour test et train
 
     # cross validation en utilisant
-    clf = svm.SVC(kernel="chi2_kernel", C=1)
+    clf = svm.SVC(kernel=chi2_kernel).fit(dataset[0],dataset[1])
     scores = cross_val_score(clf, X, y, cv=5)  # cross validation avec les donnees test
     print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 

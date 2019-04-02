@@ -6,7 +6,7 @@ import sys
 import AABagging
 import pickle
 import linear
-import chi2
+#import chi2
 import neuralNetwork
 
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
         final = generateMatrix.generateMatrixTrain(folder)
         pickle.dump(final, open("dataset.joblib","wb"))
         learn.train(final)
-        chi2.train(final)
+        #chi2.train(final)
         linear.train(final)
         neuralNetwork.train(final)
     elif sys.argv[1] == "--predict":
