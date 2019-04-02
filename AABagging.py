@@ -1,16 +1,22 @@
 from sklearn.naive_bayes import GaussianNB
 import crossValidate
 import random
+import learn
+import linear
+import chi2
+import neuralNetwork
+import pickle
 #On va récupérer les prédicts depuis les 4 sources différentes : chi2, réseau
 #de neurones, un SVC, et Naive Bayes. 
 
-def getMaxArray(array) : 
+def getMaxArray(scoreArray) : 
     maxArray = []
-    maxValue = array[0]
-    for i in range(0,len(array)) : 
-        if maxValue == array[i] :
+    maxValue = scoreArray[0]
+    for i in range(0,len(scoreArray)) : 
+        if maxValue == scoreArray[i] :
             maxArray.append(i)
-        elif maxValue < array[i] : 
+        elif maxValue < scoreArray[i] : 
+            maxValue = scoreArray[i]
             maxArray = []
             maxArray.append(i)
     return maxArray
@@ -25,35 +31,31 @@ def Bagging(testData):
 
     dataset = pickle.load(open("dataset.joblib", "rb"))
 
-    GNBClassifier = pickle.load(open("trainModelGNB.joblib", "rb")) 
-    Chi2Classifier = pickle.load(open("trainModelChi2.joblib", "rb"))
-    NWClassifier = pickle.load(open("trainModelNW.joblib", "rb"))
-    SVCClassifier = pickle.load(open("trainModelSVC.joblib", "rb"))
+    arrayGNB = learn.predict(testData)
+    arrayChi2 = chi2.predict(testData)
+    arrayNW = neuralNetwork.predict(testData)
+    arraySVC = linear.predict(testData)
 
-    arrayGNB = GNBClassifier.predict(testData)
-    arrayChi2 = Chi2Classifier.predict(testData)
-    arrayNW = NWClassifier.predict(testData)
-    arraySVC = SVCClassifier.predict(testData)
-
-    classifierArray [arrayGNB, arrayChi2, arrayNW, arraySVC]
-
-    scoreArray[0] = crossValidate.crossNW(dataset)
-    scoreArray[1] = crossValidate.crossNB(dataset)
-    scoreArray[2] = crossValidate.crossLinear(dataset)
-    scoreArray[3] = crossValidate.crossChi2(dataset)
+    classifierArray = [arrayGNB, arrayNW, arraySVC, arrayChi2] 
+    scoreArray = []
+	
+    scoreArray.append(crossValidate.crossNW(dataset).mean())
+    scoreArray.append(crossValidate.crossNB(dataset).mean())
+    scoreArray.append(crossValidate.crossLinear(dataset).mean())
+    scoreArray.append(crossValidate.crossChi2(dataset).mean())
 
     arrayMaxScores = getMaxArray(scoreArray)
 
     for i in range(0, testDataSize):
         count = 0
         if arrayGNB[i] == 1 :
-            ++count
+            count = count + 1
         if arrayChi2[i] == 1 : 
-            ++count
+            count = count + 1
         if arrayNW[i] == 1 : 
-            ++count
+            count = count + 1
         if arraySVC[i] == 1 : 
-            ++ count
+            count = count + 1
         if count >= 3 : 
             baggingArray.append(1)
         elif count == 2 :
@@ -75,7 +77,7 @@ def Bagging(testData):
                         baggingArray.append(1)
                     else :
                         baggingArray.append(-1)
-                else :
-                    baggingArray.append(-1)
+        else :
+            baggingArray.append(-1)
     return baggingArray
  
