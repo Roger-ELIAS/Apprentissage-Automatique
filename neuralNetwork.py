@@ -6,7 +6,7 @@ def train(dataset):
     X = dataset[0]  # vecteur d'image
     y = dataset[1]  # vecteur de classes
 
-    mlp = MLPClassifier(hidden_layer_sizes=(15, 15), max_iter=4000)
+    mlp = MLPClassifier(hidden_layer_sizes=(25), max_iter=15000)
 
     scalar = StandardScaler()
     X = scalar.fit_transform(X)
