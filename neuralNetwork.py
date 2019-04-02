@@ -15,18 +15,8 @@ def train(dataset):
     pickle.dump(mlp, open("trainModelNeurones.joblib", "wb"))
 
 
-# fonction de prédiction d'image qui utilise
-# un algo de Bayes. Cette fonction entraine un
-# algo et essaie de prédire la classe d'un
-# ensemble d'image.
-# Parametre : c'est un vecteur contenant deux
-# vecteurs. Le premier correspond aux images
-# sous forme de vecteur, le second correspond
-# aux classes des images.
-# Renvoie : un vecteur de classe correspondant
-# aux prediction des images.
 def predict(dataset):
     train = pickle.load(open("trainModelNeurones.joblib", "rb"))
-    result = train.predict(dataset)  # prediction avec le meme set que pour l'entrainement
+    result = train.predict(dataset)
 
     return result

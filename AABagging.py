@@ -1,13 +1,14 @@
-from sklearn.naive_bayes import GaussianNB
-import crossValidate
-import random
-import learn
-import linear
 #import chi2
+import random #dans le cas où chi2 est utilisé
+import crossValidate
+import naiveBayes
+import linear
 import neuralNetwork
 import pickle
+
 #On va récupérer les prédicts depuis les 4 sources différentes : chi2, réseau
 #de neurones, un SVC, et Naive Bayes. 
+
 
 def getMaxArray(scoreArray) : 
     maxArray = []
@@ -21,6 +22,7 @@ def getMaxArray(scoreArray) :
             maxArray.append(i)
     return maxArray
 
+
 def Bagging(testData):
     #testData est une array d'histogrammes de couleur
     #accéder à gnbClassifier
@@ -31,7 +33,7 @@ def Bagging(testData):
 
     dataset = pickle.load(open("dataset.joblib", "rb"))
 
-    arrayGNB = learn.predict(testData)
+    arrayGNB = naiveBayes.predict(testData)
     #arrayChi2 = chi2.predict(testData)
     arrayNW = neuralNetwork.predict(testData)
     arraySVC = linear.predict(testData)
