@@ -10,13 +10,12 @@ import pickle
 
 
 def train(dataset): 
-    X = dataset[0]     # vecteur d'image
-    y = dataset[1]     # vecteur de classes
+	X = dataset[0]     # vecteur d'image
+	y = dataset[1]     # vecteur de classes
 
-    algo = ComplementNB()
-    train = algo.fit(X, y)	# entrainement de l'algo avec le set d'image
-    pickle.dump(train, open("trainModel.joblib", "wb"))
-
+	algo = ComplementNB()
+	train = algo.fit(X, y)	# entrainement de l'algo avec le set d'image
+	pickle.dump(train, open("trainModel.joblib", "wb"))
 
 # fonction de prédiction d'image qui utilise
 # un algo de Bayes. Cette fonction entraine un 
@@ -29,8 +28,7 @@ def train(dataset):
 # Renvoie : un vecteur de classe correspondant
 # aux prediction des images.
 def predict (dataset):
-    X = dataset[0]     # vecteur d'image
-    y = dataset[1]     # vecteur de classes
-
-    train = pickle.load(open("trainModel.joblib", "rb"))
-    predict = train.predict(X)		# prediction avec le meme set que pour l'entrainement
+	train = pickle.load(open("trainModel.joblib", "rb"))
+	result = train.predict(dataset)		# prediction avec le meme set que pour l'entrainement
+	
+	return result

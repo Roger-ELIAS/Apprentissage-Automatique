@@ -38,5 +38,6 @@ if __name__ == '__main__':
     elif sys.argv[1] == "--predict":
         test = generateMatrix.generateMatrixTest(folder)
         predict = learn.predict(test)
+        print(predict)
         
     #print("Taux de réussite : ", diff(result, final[1]))
