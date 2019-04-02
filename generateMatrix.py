@@ -2,96 +2,63 @@ from PIL import Image
 import os
 import resizeImage
 
+matrix = []
+vector = []
+
+def append(histo, classe):
+        matrix.append(histo)
+        vector.append(classe)
 
 def getHistogram(fileName) :
 	return fileName.histogram()
 
+def rotateSingleImage(imageResize, rotationDegre, classe):
+	imageRotate = resizeImage.rotateSingleImage(imageResize, rotationDegre)
+	histo = getHistogram(imageRotate)
+	append(histo, classe)
+
+def rotate(folder, classe):
+        files = os.listdir(folder)
+
+        for fileName in files:
+                baseImage = Image.open(folder + fileName)
+                imageResize = resizeImage.resizeImage(baseImage)
+                imageFlipLR = imageResize.transpose(Image.FLIP_LEFT_RIGHT)
+                imageFlipTB = imageResize.transpose(Image.FLIP_TOP_BOTTOM)
+                histo = imageResize.histogram()
+                append(histo, classe)
+                histo = imageFlipLR.histogram()
+                append(histo, classe)
+                histo = imageFlipTB.histogram()
+                append(histo, classe)
+
+ 
+                for rotationPhase in range(0,3):
+                        for deg in range(1,3) :
+                                rotateSingleImage(imageResize, rotationPhase * 90 + deg, classe)
+                                rotateSingleImage(imageFlipLR, rotationPhase * 90 + deg, classe)
+                                rotateSingleImage(imageFlipTB, rotationPhase * 90 + deg, classe)
+                                rotateSingleImage(imageResize, rotationPhase * 90 - deg, classe)
+                                rotateSingleImage(imageFlipLR, rotationPhase * 90 - deg, classe)
+                                rotateSingleImage(imageFlipTB, rotationPhase * 90 - deg, classe)
+
+                        rotateSingleImage(imageResize, (rotationPhase + 1) * 90, classe)
+                        rotateSingleImage(imageFlipLR, (rotationPhase + 1) * 90, classe)
+                        rotateSingleImage(imageFlipTB, (rotationPhase + 1) * 90, classe)
+                            
+                for deg in range(1,3) :
+                        rotateSingleImage(imageResize, 270 + deg, classe)
+                        rotateSingleImage(imageFlipLR, 270 + deg, classe)
+                        rotateSingleImage(imageFlipTB, 270 + deg, classe)
+                        rotateSingleImage(imageResize, 270 - deg, classe)
+                        rotateSingleImage(imageFlipLR, 270 - deg, classe)
+                        rotateSingleImage(imageFlipTB, 270 - deg, classe)
+
 def generateMatrixTrain(foldername) :
-	matrix = []
-	vector = []
-
-	files = os.listdir(foldername +"/Mer/")
-
-	for fileName in files:
-		baseImage = Image.open(foldername +"/Mer/"+fileName)
-		imageResize = resizeImage.resizeImage(baseImage)
-		histo = getHistogram(imageResize)
-		matrix.append(histo)
-		vector.append(1)
-		
-		for rotationPhase in range(0,3):
-			for deg in range(1,3) :
-				imageRotate = resizeImage.rotateSingleImage(imageResize, rotationPhase * 90 + deg)
-				histo = getHistogram(imageRotate)
-				matrix.append(histo)
-				vector.append(1)
-				
-
-
-				imageRotate = resizeImage.rotateSingleImage(imageResize, rotationPhase * 90 - deg)
-				histo = getHistogram(imageRotate)
-				matrix.append(histo)
-				vector.append(1)
-				
-
-
-			imageRotate = resizeImage.rotateSingleImage(imageResize, (rotationPhase + 1) * 90)
-			histo = getHistogram(imageRotate)
-			matrix.append(histo)
-			vector.append(1)
-			
-
-			
-		for deg in range(1,3) :
-			imageRotate = resizeImage.rotateSingleImage(imageResize, 270 + deg)
-			histo = getHistogram(imageRotate)
-			matrix.append(histo)
-			vector.append(1)
-
-			imageRotate = resizeImage.rotateSingleImage(imageResize, 270 - deg)
-			histo = getHistogram(imageRotate)
-			matrix.append(histo)
-			vector.append(1)
-			
-
-	files = os.listdir(foldername +"/Ailleurs/")
-	for fileName in files:
-		baseImage = Image.open(foldername +"/Ailleurs/"+fileName)
-		imageResize = resizeImage.resizeImage(baseImage)
-		histo = getHistogram(imageResize)
-		matrix.append(histo)
-		vector.append(-1)
-		
-		for rotationPhase in range(0,3) :
-			for deg in range(1,3) :
-				imageRotate = resizeImage.rotateSingleImage(imageResize, rotationPhase * 90 + deg)
-				histo = getHistogram(imageRotate)
-				matrix.append(histo)
-				vector.append(-1)
-
-				imageRotate = resizeImage.rotateSingleImage(imageResize, rotationPhase * 90 - deg)
-				histo = getHistogram(imageRotate)
-				matrix.append(histo)
-				vector.append(-1)
-
-
-			imageRotate = resizeImage.rotateSingleImage(imageResize, (rotationPhase + 1) * 90)
-			histo = getHistogram(imageRotate)
-			matrix.append(histo)
-			vector.append(-1)
-
-		for deg in range(1,3) :
-			imageRotate = resizeImage.rotateSingleImage(imageResize, 270 + deg)
-			histo = getHistogram(imageRotate)
-			matrix.append(histo)
-			vector.append(-1)
-
-			imageRotate = resizeImage.rotateSingleImage(imageResize, 270 - deg)
-			histo = getHistogram(imageRotate)
-			matrix.append(histo)
-			vector.append(-1)
-
+	rotate(foldername + "/Mer/", 1)
+	rotate(foldername + "/Ailleurs/", -1)
 	return [matrix,vector]
+
 
 def generateMatrixTest(folder) :
 	matrix = []
@@ -106,5 +73,3 @@ def generateMatrixTest(folder) :
 		matrix.append(histo)
 
 	return matrix
-
-#generateMatrixTrain("Data")
