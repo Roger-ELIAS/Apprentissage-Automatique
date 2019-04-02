@@ -1,9 +1,17 @@
+import PIL
 from PIL import Image
 import os
-import resizeImage
 
 matrix = []
 vector = []
+
+def resizeImage(image) :
+    baseImage = image.resize((200, 200))
+    return baseImage
+
+def rotateImage(baseImage, deg) :
+    newImage = baseImage.rotate(deg, Image.BICUBIC, True)
+    return newImage
 
 def append(histo, classe):
         matrix.append(histo)
@@ -13,7 +21,7 @@ def getHistogram(fileName) :
 	return fileName.histogram()
 
 def rotateSingleImage(imageResize, rotationDegre, classe):
-	imageRotate = resizeImage.rotateSingleImage(imageResize, rotationDegre)
+	imageRotate = rotateImage(imageResize, rotationDegre)
 	histo = getHistogram(imageRotate)
 	append(histo, classe)
 
@@ -22,7 +30,7 @@ def rotate(folder, classe):
 
         for fileName in files:
                 baseImage = Image.open(folder + fileName)
-                imageResize = resizeImage.resizeImage(baseImage)
+                imageResize = resizeImage(baseImage)
                 imageFlipLR = imageResize.transpose(Image.FLIP_LEFT_RIGHT)
                 imageFlipTB = imageResize.transpose(Image.FLIP_TOP_BOTTOM)
                 histo = imageResize.histogram()
