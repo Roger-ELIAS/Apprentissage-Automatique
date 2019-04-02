@@ -79,7 +79,7 @@ def generateMatrixTest(folder) :
 	
 	for fileName in files :
 		baseImage = Image.open(file+fileName)
-		imageResize = resizeImage.resizeImage(baseImage)
+                imageResize = resizeImage(baseImage)
 		histo =  imageResize.histogram()
 		matrix.append(histo)
 
