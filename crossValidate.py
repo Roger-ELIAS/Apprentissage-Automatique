@@ -17,7 +17,7 @@ def crossLinear(dataset):
     
     clf = svm.SVC(kernel='linear', C=1)		# creation et entrainement de l'estimateur avec les donnees test
     scores = cross_val_score(clf, X, y, cv=5)	# cross validation avec les donnees test
-    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    print("Linear : Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
     return scores    
 
@@ -31,7 +31,7 @@ def crossChi2(dataset):
     # cross validation en utilisant
     clf = svm.SVC(kernel=chi2_kernel).fit(dataset[0],dataset[1])
     scores = cross_val_score(clf, X, y, cv=5)  # cross validation avec les donnees test
-    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    print("Chi2 : Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
     return scores
 
@@ -46,7 +46,7 @@ def crossNW(dataset):
 
     scores = cross_val_score(mlp, X, y, cv=5)
     
-    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    print("NeuralNetwork : Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
     return scores
 
 def crossNB(dataset):
@@ -57,7 +57,7 @@ def crossNB(dataset):
 
     scores = cross_val_score(clf, X, y , cv=5)
 
-    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    print("Naive Bayse : Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
     return scores
     
 

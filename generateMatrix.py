@@ -4,7 +4,7 @@ import os
 
 matrix = []
 vector = []
-
+#Resize l'image pour avoir le meme nombre de pixel sur l'histogramme de couleur 
 def resizeImage(image) :
     baseImage = image.resize((200, 200))
     return baseImage

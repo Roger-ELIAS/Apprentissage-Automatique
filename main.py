@@ -9,22 +9,13 @@ import linear
 #import chi2
 import neuralNetwork
 
-
+#Fonction qui regarde le nombre de difference entre deux array 
 def diff(a, b):
     target = numpy.array(a)
     result = numpy.array(b)
     error = numpy.mean(target != result)
     return round(100 - error * 100, 10)
-
-
-#if __name__ == '__main__':
-#    final = generateMatrix.generateMatrixTrain("DATA_TRAIN_FOLDER")
     
-#    learn.predict(final)
-    
-#    validateResult = crossValidate.crossLinear(final)
-#    validateResult = crossValidate.crossChi2(final)
-
 if __name__ == '__main__':
     if len(sys.argv) != 3:
         print("Usage : pyhton3 main.py <--action> <folder>")
@@ -38,10 +29,9 @@ if __name__ == '__main__':
         #chi2.train(final)
         linear.train(final)
         neuralNetwork.train(final)
+        print("Succesful")
     elif sys.argv[1] == "--predict":
         test = generateMatrix.generateMatrixTest(folder)
         result = AABagging.Bagging(test)
         print(result)
-        arrayTest = [-1,1,-1,1,-1,-1,-1,-1,1,-1,-1,1,-1,-1,-1,1,-1,1,-1,1,-1,-1,1,-1,-1,1,-1,-1,1,-1,1,-1,-1,-1,1,-1,-1,-1,1,1,1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,-1,1,-1,-1,1,1,-1,1,1,-1,-1,-1,-1,1,1,-1,1,1,1,1]
-        print(diff(result,arrayTest))        
     #print("Taux de réussite : ", diff(result, final[1]))
