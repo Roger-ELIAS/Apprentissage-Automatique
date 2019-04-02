@@ -11,7 +11,7 @@ def crossLinear(dataset):
     y = dataset[1]     # vecteur de classes
     
     clf = svm.SVC(kernel='linear', C=1)		# creation et entrainement de l'estimateur avec les donnees test
-    scores = cross_val_score(clf, X, y, cv=20)	# cross validation avec les donnees test
+    scores = cross_val_score(clf, X, y, cv=5)	# cross validation avec les donnees test
     print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
     return scores    
@@ -29,3 +29,30 @@ def crossChi2(dataset):
     print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
     return scores
+
+def crossNW(dataset): 
+    X = dataset[0]
+    y = dataset[1]
+
+    mlp = MLPClassifier(hidden_layer_sizes=(15, 15), max_iter=4000)
+
+    scalar = StandardScaler()
+    X = scalar.fit_transform(X)
+
+    scores = cross_val_score(mlp, X, y, cv=5)
+    
+    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    return scores
+
+def crossNB(dataset):
+    X = dataset[0]
+    y = dataset[1]
+
+    clf = GaussianNB()
+
+    scores = cross_val_score(clf, X, y , cv=5)
+
+    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    return scores
+    
+
